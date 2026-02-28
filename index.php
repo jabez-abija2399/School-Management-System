@@ -52,7 +52,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 <label for="password">Password</label>
                 <input type="password" id="password" name="password" required placeholder="Enter password">
             </div>
-            <button type="submit">Login</button>
+            <button type="submit" class="btn-full">Login</button>
         </form>
     </div>
 </body>
