@@ -222,8 +222,12 @@ button {
     border-radius: 0.5rem;
     cursor: pointer;
     font-weight: 600;
-    width: 100%;
     transition: background 0.3s;
+    width: auto;
+}
+
+.btn-full {
+    width: 100%;
 }
 
 button:hover {
