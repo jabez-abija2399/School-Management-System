@@ -4,12 +4,37 @@ if (!isset($_SESSION['user'])) {
     exit;
 }
 $current_page = basename($_SERVER['SCRIPT_NAME']);
+$user_initial = strtoupper(substr($_SESSION['user'], 0, 1));
 ?>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
 <nav>
-    <h2>SMS Portal</h2>
-    <a href="../Student/student.php" class="<?php echo ($current_page == 'student.php') ? 'active' : ''; ?>">Students</a>
-    <a href="../Teacher/teacher.php" class="<?php echo ($current_page == 'teacher.php') ? 'active' : ''; ?>">Teachers</a>
-    <a href="../Course/course.php" class="<?php echo ($current_page == 'course.php') ? 'active' : ''; ?>">Courses</a>
-    <a href="../Room/room.php" class="<?php echo ($current_page == 'room.php') ? 'active' : ''; ?>">Rooms</a>
-    <a href="../logout.php" style="margin-top: auto; color: #ef4444; border-left: none !important; background: transparent !important;">Logout</a>
+    <h2><i class="fas fa-school"></i> SMS Admin</h2>
+    
+    <div class="nav-label">Management</div>
+    <a href="../Student/student.php" class="<?php echo ($current_page == 'student.php') ? 'active' : ''; ?>">
+        <i class="fas fa-user-graduate"></i> Students
+    </a>
+    <a href="../Teacher/teacher.php" class="<?php echo ($current_page == 'teacher.php') ? 'active' : ''; ?>">
+        <i class="fas fa-chalkboard-teacher"></i> Teachers
+    </a>
+    <a href="../Course/course.php" class="<?php echo ($current_page == 'course.php') ? 'active' : ''; ?>">
+        <i class="fas fa-book"></i> Courses
+    </a>
+    <a href="../Room/room.php" class="<?php echo ($current_page == 'room.php') ? 'active' : ''; ?>">
+        <i class="fas fa-door-open"></i> Rooms
+    </a>
+
+    <div class="nav-label">System</div>
+    <a href="../logout.php" style="color: #ef4444;">
+        <i class="fas fa-sign-out-alt"></i> Logout
+    </a>
+
+    <div class="nav-user">
+        <div class="user-avatar"><?php echo $user_initial; ?></div>
+        <div class="user-info">
+            <div class="user-name"><?php echo htmlspecialchars($_SESSION['user']); ?></div>
+            <div class="user-role">Administrator</div>
+        </div>
+    </div>
 </nav>
