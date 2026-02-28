@@ -49,7 +49,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['register'])) {
                         <label>Department</label>
                         <input type="text" name="department" required>
                     </div>
-                    <button type="submit" name="register">Create Course</button>
+                    <button type="submit" name="register" class="btn-full">Create Course</button>
                 </form>
             </div>
         </div>
