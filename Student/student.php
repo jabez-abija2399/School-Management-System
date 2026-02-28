@@ -11,20 +11,6 @@ if (isset($_GET['delete'])) {
     exit;
 }
 
-// Handle Registration
-if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['register'])) {
-    $id = $_POST['stud_id'];
-    $name = $_POST['stud_name'];
-    $age = $_POST['age'];
-    $sex = $_POST['sex'];
-    $year = $_POST['year'];
-
-    $stmt = $pdo->prepare("INSERT INTO Stud_table (Stud_ID, Stud_name, Age, Sex, Year) VALUES (?, ?, ?, ?, ?)");
-    $stmt->execute([$id, $name, $age, $sex, $year]);
-    header("Location: student.php?msg=Student registered successfully");
-    exit;
-}
-
 // Handle Search
 $search = $_GET['search'] ?? '';
 $query = "SELECT * FROM Stud_table";
@@ -42,61 +28,41 @@ $students = $stmt->fetchAll();
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Student Management - SMS</title>
+    <title>Students - SMS</title>
     <link rel="stylesheet" href="../CSS/style.css">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap">
 </head>
 <body>
     <?php include '../components/nav.php'; ?>
     
     <main>
         <div class="container">
-            <h1>Student Management</h1>
+            <div class="page-header">
+                <div>
+                    <h1>Student Records</h1>
+                    <p style="color: #64748b;">Manage all enrolled students</p>
+                </div>
+                <a href="register_student.php" class="btn-primary">
+                    <i class="fas fa-plus"></i> Add New Student
+                </a>
+            </div>
             
             <?php if (isset($_GET['msg'])): ?>
-                <div style="background: var(--success); color: white; padding: 1rem; border-radius: 0.5rem; margin-bottom: 2rem;">
+                <div style="background: var(--success); color: white; padding: 1rem; border-radius: 0.5rem; margin-bottom: 2rem; display: flex; align-items: center; gap: 0.5rem;">
+                    <i class="fas fa-check-circle"></i>
                     <?php echo htmlspecialchars($_GET['msg']); ?>
                 </div>
             <?php endif; ?>
 
-            <div class="form-card" style="margin-bottom: 3rem;">
-                <h2>Register New Student</h2>
-                <form method="POST">
-                    <div class="form-group">
-                        <label>Student ID</label>
-                        <input type="text" name="stud_id" required placeholder="e.g. S005">
-                    </div>
-                    <div class="form-group">
-                        <label>Full Name</label>
-                        <input type="text" name="stud_name" required>
-                    </div>
-                    <div style="display: flex; gap: 1rem;">
-                        <div class="form-group" style="flex: 1;">
-                            <label>Age</label>
-                            <input type="number" name="age" required>
-                        </div>
-                        <div class="form-group" style="flex: 1;">
-                            <label>Sex</label>
-                            <select name="sex" required>
-                                <option value="M">Male</option>
-                                <option value="F">Female</option>
-                            </select>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label>Year</label>
-                        <input type="number" name="year" required>
-                    </div>
-                    <button type="submit" name="register">Register Student</button>
-                </form>
-            </div>
-
             <div class="table-container">
-                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem;">
-                    <h2>Student Records</h2>
-                    <form method="GET" style="display: flex; gap: 0.5rem;">
-                        <input type="text" name="search" placeholder="Search by ID or Name" value="<?php echo htmlspecialchars($search); ?>" style="padding: 0.5rem; border-radius: 0.5rem; border: 1px solid #ccc;">
-                        <button type="submit" style="width: auto; padding: 0.5rem 1rem;">Search</button>
+                <div style="margin-bottom: 2.5rem;">
+                    <form method="GET" style="display: flex; gap: 1rem; align-items: center;">
+                        <div class="search-wrapper">
+                            <input type="text" name="search" class="search-input" placeholder="Search by ID or Name..." value="<?php echo htmlspecialchars($search); ?>">
+                            <i class="fas fa-search"></i>
+                        </div>
+                        <button type="submit" class="btn-primary">
+                            <i class="fas fa-filter"></i> Apply Filters
+                        </button>
                     </form>
                 </div>
                 <table>
@@ -107,19 +73,30 @@ $students = $stmt->fetchAll();
                             <th>Age</th>
                             <th>Sex</th>
                             <th>Year</th>
-                            <th>Actions</th>
+                            <th style="text-align: right;">Actions</th>
                         </tr>
                     </thead>
                     <tbody>
+                        <?php if (empty($students)): ?>
+                            <tr>
+                                <td colspan="6" style="text-align: center; padding: 3rem; color: #94a3b8;">No students found.</td>
+                            </tr>
+                        <?php endif; ?>
                         <?php foreach ($students as $s): ?>
                             <tr>
-                                <td><?php echo htmlspecialchars($s['Stud_ID']); ?></td>
-                                <td><?php echo htmlspecialchars($s['Stud_name']); ?></td>
+                                <td style="font-weight: 600; color: var(--primary-color);">#<?php echo htmlspecialchars($s['Stud_ID']); ?></td>
+                                <td style="font-weight: 500;"><?php echo htmlspecialchars($s['Stud_name']); ?></td>
                                 <td><?php echo htmlspecialchars($s['Age']); ?></td>
-                                <td><?php echo htmlspecialchars($s['Sex']); ?></td>
-                                <td><?php echo htmlspecialchars($s['Year']); ?></td>
                                 <td>
-                                    <a href="?delete=<?php echo urlencode($s['Stud_ID']); ?>" class="btn-delete" onclick="return confirm('Are you sure?')">Delete</a>
+                                    <span style="padding: 0.25rem 0.5rem; border-radius: 0.25rem; background: #f1f5f9; font-size: 0.75rem; font-weight: 700;">
+                                        <?php echo $s['Sex'] == 'M' ? 'Male' : 'Female'; ?>
+                                    </span>
+                                </td>
+                                <td>Year <?php echo htmlspecialchars($s['Year']); ?></td>
+                                <td style="text-align: right;">
+                                    <a href="?delete=<?php echo urlencode($s['Stud_ID']); ?>" class="btn-delete" onclick="return confirm('Delete this record?')" title="Delete Student">
+                                        <i class="fas fa-trash-alt"></i>
+                                    </a>
                                 </td>
                             </tr>
                         <?php endforeach; ?>
