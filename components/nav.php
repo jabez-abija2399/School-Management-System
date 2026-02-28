@@ -37,6 +37,9 @@ $user_initial = strtoupper(substr($_SESSION['user'], 0, 1));
     <a href="../Room/room.php" class="<?php echo ($current_page == 'room.php' || $current_page == 'register_room.php') ? 'active' : ''; ?>">
         <i class="fas fa-door-open"></i> Rooms
     </a>
+    <a href="../Program/program.php" class="<?php echo ($current_page == 'program.php' || $current_page == 'register_program.php' || $current_page == 'register_dept.php') ? 'active' : ''; ?>">
+        <i class="fas fa-graduation-cap"></i> Programs
+    </a>
 
     <div class="nav-label">System</div>
     <a href="../logout.php" style="color: #ef4444;">

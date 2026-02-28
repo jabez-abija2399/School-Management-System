@@ -3,11 +3,12 @@ USE school;
 
 -- Student Table
 CREATE TABLE IF NOT EXISTS Stud_table (
-    Stud_ID VARCHAR(10) PRIMARY KEY,
+    Stud_ID VARCHAR(30) PRIMARY KEY,
     Stud_name VARCHAR(100) NOT NULL,
     Age INT,
     Sex CHAR(1),
-    Year INT
+    Program VARCHAR(50),
+    Department VARCHAR(50)
 );
 
 -- Teacher Table
@@ -38,11 +39,11 @@ CREATE TABLE IF NOT EXISTS Login_table (
 );
 
 -- Insert Initial Data (Task 3)
-INSERT IGNORE INTO Stud_table (Stud_ID, Stud_name, Age, Sex, Year) VALUES
-('S001', 'Alemu', 20, 'M', 2),
-('S002', 'Megersa', 23, 'M', 3),
-('S003', 'Kebede', 30, 'M', 3),
-('S004', 'Helen', 23, 'F', 4);
+INSERT IGNORE INTO Stud_table (Stud_ID, Stud_name, Age, Sex, Program, Department) VALUES
+('TVET-HW-24-001', 'Alemu', 20, 'M', 'TVET', 'Hardware'),
+('BAC-CS-24-001', 'Megersa', 23, 'M', 'Bachelor', 'Computer Science'),
+('BAC-IT-24-001', 'Kebede', 30, 'M', 'Bachelor', 'Information Technology'),
+('PGR-IT-24-001', 'Helen', 23, 'F', 'Postgrad', 'Masters in IT');
 
 INSERT IGNORE INTO Teach_table (T_Id, T_name, Major) VALUES
 ('T001', 'Kemal', 'Mathematics'),
@@ -62,6 +63,29 @@ INSERT IGNORE INTO Room_table (Room_ID, Bld_num, Room_type) VALUES
 ('Ro5', 'B001', 'lab'),
 ('Ro3', 'B003', 'lecture');
 
-INSERT IGNORE INTO Login_table (Account, Password) VALUES
-('Account1', '12345'),
-('Account2', '54321');
+-- Programs Table
+CREATE TABLE IF NOT EXISTS Programs_table (
+    Prog_ID INT AUTO_INCREMENT PRIMARY KEY,
+    Prog_Name VARCHAR(100) NOT NULL UNIQUE
+);
+
+-- Departments Table
+CREATE TABLE IF NOT EXISTS Departments_table (
+    Dept_ID INT AUTO_INCREMENT PRIMARY KEY,
+    Dept_Name VARCHAR(100) NOT NULL,
+    Prog_ID INT,
+    FOREIGN KEY (Prog_ID) REFERENCES Programs_table(Prog_ID) ON DELETE CASCADE
+);
+
+-- Seed Programs
+INSERT IGNORE INTO Programs_table (Prog_Name) VALUES 
+('TVET'), ('Bachelor'), ('Postgrad');
+
+-- Seed Departments
+INSERT IGNORE INTO Departments_table (Dept_Name, Prog_ID) VALUES 
+('Hardware', 1), ('Software', 1),
+('Computer Science', 2), ('Information Technology', 2), ('Software Engineering', 2),
+('Masters in IT', 3), ('MBA', 3);
+
+-- Login Table (already exists, but for reference)
+-- INSERT IGNORE INTO Login_table (Account, Password) VALUES ('Account1', '12345'), ('Account2', '54321');
