@@ -8,19 +8,23 @@ require_once 'config/db.php';
 $error = '';
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $account = $_POST['account'] ?? '';
-    $password = $_POST['password'] ?? '';
+    try {
+        $account = $_POST['account'] ?? '';
+        $password = $_POST['password'] ?? '';
 
-    $stmt = $pdo->prepare("SELECT * FROM Login_table WHERE Account = ? AND Password = ?");
-    $stmt->execute([$account, $password]);
-    $user = $stmt->fetch();
+        $stmt = $pdo->prepare("SELECT * FROM Login_table WHERE Account = ? AND Password = ?");
+        $stmt->execute([$account, $password]);
+        $user = $stmt->fetch();
 
-    if ($user) {
-        $_SESSION['user'] = $user['Account'];
-        header("Location: Student/student.php");
-        exit;
-    } else {
-        $error = "Invalid account or password!";
+        if ($user) {
+            $_SESSION['user'] = $user['Account'];
+            header("Location: Student/student.php");
+            exit;
+        } else {
+            $error = "Invalid account or password!";
+        }
+    } catch (PDOException $e) {
+        $error = "Database Error: " . $e->getMessage();
     }
 }
 ?>
