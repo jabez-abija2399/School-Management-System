@@ -7,6 +7,13 @@ $charset = 'utf8mb4';
 
 //MySQL User Name : if0_41269536  
 //  	MySQL Host Name: sql103.infinityfree.com
+// $servername = "sql103.infinityfree.com";  // MySQL host from vPanel
+// $username   = "if0_41269536";              // MySQL username
+// $password   = "2djFJC3y6SKYbCx";         // MySQL password
+// $dbname     = "if0_41269536_School";              // Database name
+
+// $conn = new mysqli($servername, $username, $password, $dbname);
+
 
 $dsn = "mysql:host=$host;dbname=$db;charset=$charset";
 $options = [
