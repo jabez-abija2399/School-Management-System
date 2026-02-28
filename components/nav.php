@@ -8,7 +8,20 @@ $user_initial = strtoupper(substr($_SESSION['user'], 0, 1));
 ?>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
-<nav>
+<!-- Mobile Header -->
+<div class="mobile-header">
+    <div style="display: flex; align-items: center; gap: 0.5rem; font-weight: 800;">
+        <i class="fas fa-school" style="color: var(--primary-color);"></i> SMS Admin
+    </div>
+    <button class="menu-toggle" id="sidebarToggle">
+        <i class="fas fa-bars"></i>
+    </button>
+</div>
+
+<!-- Overlay for Mobile -->
+<div class="sidebar-overlay" id="overlay"></div>
+
+<nav id="sidebar">
     <h2><i class="fas fa-school"></i> SMS Admin</h2>
     
     <div class="nav-label">Management</div>
@@ -38,3 +51,23 @@ $user_initial = strtoupper(substr($_SESSION['user'], 0, 1));
         </div>
     </div>
 </nav>
+
+<script>
+    const sidebar = document.getElementById('sidebar');
+    const toggleBtn = document.getElementById('sidebarToggle');
+    const overlay = document.getElementById('overlay');
+
+    if(toggleBtn) {
+        toggleBtn.addEventListener('click', () => {
+            sidebar.classList.toggle('show');
+            overlay.classList.toggle('show');
+        });
+    }
+
+    if(overlay) {
+        overlay.addEventListener('click', () => {
+            sidebar.classList.remove('show');
+            overlay.classList.remove('show');
+        });
+    }
+</script>
