@@ -12,16 +12,16 @@ $user_initial = strtoupper(substr($_SESSION['user'], 0, 1));
     <h2><i class="fas fa-school"></i> SMS Admin</h2>
     
     <div class="nav-label">Management</div>
-    <a href="../Student/student.php" class="<?php echo ($current_page == 'student.php') ? 'active' : ''; ?>">
+    <a href="../Student/student.php" class="<?php echo ($current_page == 'student.php' || $current_page == 'register_student.php') ? 'active' : ''; ?>">
         <i class="fas fa-user-graduate"></i> Students
     </a>
-    <a href="../Teacher/teacher.php" class="<?php echo ($current_page == 'teacher.php') ? 'active' : ''; ?>">
+    <a href="../Teacher/teacher.php" class="<?php echo ($current_page == 'teacher.php' || $current_page == 'register_teacher.php') ? 'active' : ''; ?>">
         <i class="fas fa-chalkboard-teacher"></i> Teachers
     </a>
-    <a href="../Course/course.php" class="<?php echo ($current_page == 'course.php') ? 'active' : ''; ?>">
+    <a href="../Course/course.php" class="<?php echo ($current_page == 'course.php' || $current_page == 'register_course.php') ? 'active' : ''; ?>">
         <i class="fas fa-book"></i> Courses
     </a>
-    <a href="../Room/room.php" class="<?php echo ($current_page == 'room.php') ? 'active' : ''; ?>">
+    <a href="../Room/room.php" class="<?php echo ($current_page == 'room.php' || $current_page == 'register_room.php') ? 'active' : ''; ?>">
         <i class="fas fa-door-open"></i> Rooms
     </a>
 
