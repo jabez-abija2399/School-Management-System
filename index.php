@@ -18,7 +18,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
         if ($user) {
             $_SESSION['user'] = $user['Account'];
-            header("Location: Student/student.php");
+            header("Location: Dashboard/dashboard.php");
             exit;
         } else {
             $error = "Invalid account or password!";

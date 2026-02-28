@@ -25,6 +25,9 @@ $user_initial = strtoupper(substr($_SESSION['user'], 0, 1));
     <h2><i class="fas fa-school"></i> SMS Admin</h2>
     
     <div class="nav-label">Management</div>
+    <a href="../Dashboard/dashboard.php" class="<?php echo ($current_page == 'dashboard.php') ? 'active' : ''; ?>">
+        <i class="fas fa-th-large"></i> Dashboard
+    </a>
     <a href="../Student/student.php" class="<?php echo ($current_page == 'student.php' || $current_page == 'register_student.php') ? 'active' : ''; ?>">
         <i class="fas fa-user-graduate"></i> Students
     </a>
