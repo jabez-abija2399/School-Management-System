@@ -5,6 +5,9 @@ $user = 'root';
 $pass = '';     
 $charset = 'utf8mb4';
 
+//MySQL User Name : if0_41269536  
+//  	MySQL Host Name: sql103.infinityfree.com
+
 $dsn = "mysql:host=$host;dbname=$db;charset=$charset";
 $options = [
     PDO::ATTR_ERRMODE            => PDO::ERRMODE_EXCEPTION,
