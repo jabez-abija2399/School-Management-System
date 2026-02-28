@@ -37,7 +37,12 @@ nav {
     flex-direction: column;
     border-right: 1px solid rgba(255, 255, 255, 0.05);
     box-shadow: 10px 0 30px -15px rgba(0, 0, 0, 0.5);
-    z-index: 10;
+    z-index: 100;
+    position: fixed;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    overflow-y: auto;
 }
 
 nav h2 {
@@ -136,7 +141,9 @@ nav a.active {
 main {
     flex: 1;
     padding: 2rem;
-    overflow-y: auto;
+    margin-left: 280px;
+    /* Width of the sidebar */
+    min-height: 100vh;
 }
 
 .container {
