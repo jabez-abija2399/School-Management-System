@@ -60,6 +60,15 @@ nav a:hover {
     transform: translateX(5px);
 }
 
+nav a.active {
+    background-color: var(--sidebar-bg);
+    border-left: 4px solid var(--primary-color);
+    color: var(--primary-color);
+    font-weight: 700;
+    border-radius: 0 0.5rem 0.5rem 0;
+    background-color: rgba(79, 70, 229, 0.1);
+}
+
 /* Main Content Area */
 main {
     flex: 1;
